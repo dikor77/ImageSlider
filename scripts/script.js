@@ -2,7 +2,10 @@
 let cards = [
     "images/img_lights_wide.jpg", 
     "images/img_mountains_wide.jpg", 
-    "images/img_nature_wide.jpg"
+    "images/img_nature_wide.jpg",
+    "images/img_lights_wide.jpg", 
+    "images/img_mountains_wide.jpg", 
+    "images/img_nature_wide.jpg",
 ]
 
 //create cards
@@ -13,6 +16,8 @@ cards.reverse().forEach((val, idx, arr) => createImageCard(
     "Slide " + (arr.length - idx) 
 ))
 
+//create dots
+cards.forEach((val, idx) => createImageDots(idx+1))
 
 
 
@@ -65,4 +70,13 @@ function createImageCard(slideNum, slidesTotal, imagePath, captionText){
 
     slidesContainer.insertBefore(div_mySlide, slidesContainer.firstChild)
 
+}
+
+function createImageDots(slideNum){
+    let slidesDotsCollection = document.getElementsByClassName("dots-collection")[0]
+    let span_dot = document.createElement('span')
+    span_dot.setAttribute('class', "dot")
+    span_dot.setAttribute('onclick', `currentSlide(${slideNum})`)
+
+    slidesDotsCollection.appendChild(span_dot)
 }
