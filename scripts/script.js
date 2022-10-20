@@ -35,7 +35,7 @@ xhr.onerror = function() {
   console.log('Ошибка запроса');
 };
 
-xhr.open("get", "https://picsum.photos/v2/list", true);
+xhr.open("get", "https://picsum.photos/v2/list/?limit=10", true);
 xhr.send();
 
 
