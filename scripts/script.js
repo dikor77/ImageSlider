@@ -1,28 +1,46 @@
-//cards list
-let cards = [
-    "images/img_lights_wide.jpg", 
-    "images/img_mountains_wide.jpg", 
-    "images/img_nature_wide.jpg",
-    "images/img_lights_wide.jpg", 
-    "images/img_mountains_wide.jpg", 
-    "images/img_nature_wide.jpg",
-]
+let slideIndex = 1;
 
-//create cards
-cards.reverse().forEach((val, idx, arr) => createImageCard(
+//cards list
+// let cards = [
+//     "images/img_lights_wide.jpg", 
+//     "images/img_mountains_wide.jpg", 
+//     "images/img_nature_wide.jpg",
+//     "images/img_lights_wide.jpg", 
+//     "images/img_mountains_wide.jpg", 
+//     "images/img_nature_wide.jpg",
+// ]
+
+const xhr = new XMLHttpRequest();
+
+xhr.onload = function() {
+  //console.log(`Статус: ${xhr.status}; Результат: ${xhr.response}`)
+  
+  const cards = JSON.parse(xhr.response)
+
+  //create cards
+  cards.reverse().forEach((val, idx, arr) => createImageCard(
     arr.length - idx, 
     arr.length, 
-    val, 
+    val.download_url, 
     "Slide " + (arr.length - idx) 
-))
+  ))
 
-//create dots
-cards.forEach((val, idx) => createImageDots(idx+1))
+  //create dots
+  cards.forEach((val, idx) => createImageDots(idx+1))
+
+  showSlides(slideIndex);
+  };
+
+xhr.onerror = function() {
+  console.log('Ошибка запроса');
+};
+
+xhr.open("get", "https://picsum.photos/v2/list", true);
+xhr.send();
 
 
 
-let slideIndex = 1;
-showSlides(slideIndex);
+
 
 // Next/previous controls
 function plusSlides(n) {
